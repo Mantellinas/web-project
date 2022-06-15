@@ -1,4 +1,4 @@
-from flask import Flask, json
+from flask import Flask, json, jsonify
 import requests
 from datetime import datetime
 ES_ADDRESS = "http://elasticsearch:9200"
@@ -22,8 +22,7 @@ def getData():
         i = 0
         
     article = data[i]
-    print("articoloooo")
-    print(article)
+   
     text_full_text = article['full_text']['text']
     for item in article['full_text']['sections']:
         text_full_text += item['text']
@@ -47,7 +46,7 @@ def getData():
                 source.append({"source": edge['src_pos'], "target": edge['dst_pos'], "value": edge['edge_name']})
         
         temp_dict = {"timestamp": datetime.now().isoformat(),"nodes": nodesDict, "links": source}
-        graph_dict = json.dumps(temp_dict)
+        graph_dict = jsonify(temp_dict)
 
         return graph_dict   
     except:

@@ -71,24 +71,24 @@ services:
     networks:
         - mynetwork
 
-  # #-------------------------------#
-  # # 🖥️ rest-server                #
-  # #-------------------------------#
-  # rest-server:
-  #   container_name: rest-server-container
-  #   depends_on:
-  #     - logstash
-  #     -  pubmed-api-server
-  #   build:
-  #     context: Computation
-  #     dockerfile: Dockerfile
-  #   image: rest-server
-  #   ports: 
-  #     - "3000:3000"
-  #   restart: on-failure 
+  #-------------------------------#
+  # 🖥️ rest-server                #
+  #-------------------------------#
+  rest-server:
+    container_name: rest-server-container
+    depends_on:
+      - logstash
+      -  pubmed-api-server
+    build:
+      context: Computation
+      dockerfile: Dockerfile
+    image: rest-server
+    ports: 
+      - "3000:3000"
+    restart: on-failure 
 
-  #   networks:
-  #     - mynetwork
+    networks:
+      - mynetwork
 
 networks:
   mynetwork:

@@ -1,12 +1,11 @@
-from os import times
-from time import time
-from flask import Flask, json, after_this_request
+from cgitb import reset
+from flask import Flask, json, after_this_request, jsonify, make_response
 from elasticsearch import Elasticsearch
 from flask_cors import CORS, cross_origin
 
 es_server = Flask(__name__)
 cors = CORS(es_server)
-ES_ADDRESS = "http://localhost:9200"
+ES_ADDRESS = "http://elasticsearch:9200"
 ES_INDEX = "graph_gui"
 
 es = Elasticsearch(
@@ -18,11 +17,6 @@ es = Elasticsearch(
 @es_server.route("/search")
 @cross_origin()
 def getData():
-    @after_this_request
-    def add_header(response):
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        return response 
-
     search_param = {
         "size": 1,
         "sort": { "timestamp": "desc"},
@@ -31,18 +25,14 @@ def getData():
         }
     }
     res = es.search(index=ES_INDEX, body=search_param)
-    return es_server.response_class( json.dumps(res) )
+    res = str(res)
+    return make_response(jsonify(res), 200)
 
 
 #return a list of all document's ids
 @es_server.route("/get-doc-id")
 @cross_origin()
 def get_documents_id():
-    @after_this_request
-    def add_header(response):
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        return response
-
     query = {
          "size": 100,
         "query" : { 
@@ -65,11 +55,6 @@ def get_documents_id():
 @es_server.route("/get-doc-by-id/<id>") 
 @cross_origin()
 def get_document_by_id(id):
-    @after_this_request
-    def add_header(response):
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        return response
-
     query = {
         "size": 1,
         "query": { 
@@ -84,7 +69,8 @@ def get_document_by_id(id):
     }
 
     res = es.search(index=ES_INDEX, body=query)
-    return es_server.response_class( json.dumps(res) )
+    res = str(res)
+    return make_response(jsonify(res), 200)
 
 
 if __name__ == "__main__":
