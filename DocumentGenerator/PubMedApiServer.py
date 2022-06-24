@@ -1,7 +1,6 @@
 from flask import Flask, json, jsonify
 import requests
 from datetime import datetime
-ES_ADDRESS = "http://localhost:9200"
 SPACY_ADDRESS = "http://spacy:8088/entities"
 
 PubMedApi = Flask(__name__)
@@ -20,9 +19,11 @@ def getData():
 
     i += 1
     print(i)
+    try:
+        article = data[i]
+    except:
+        print("non ho tirato il documento "+i)
     
-    article = data[i]
-
         
 
     text_full_text = article['full_text']['text']
@@ -48,7 +49,7 @@ def getData():
                 source.append({"source": edge['src_pos'], "target": edge['dst_pos'], "value": edge['edge_name']})
         
         temp_dict = {"timestamp": datetime.now().isoformat(),"nodes": nodesDict, "links": source, "full_text": text_full_text }
-    
+        print(temp_dict)
         #graph_dict = jsonify(temp_dict)
         return  json.dumps(temp_dict) 
 

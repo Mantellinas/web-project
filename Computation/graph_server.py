@@ -1,4 +1,5 @@
 from cgitb import reset
+from os import times
 from flask import Flask, json, after_this_request, jsonify, make_response
 from elasticsearch import Elasticsearch
 from flask_cors import CORS, cross_origin
@@ -30,14 +31,16 @@ def getData():
     nodes = []
     edges = []
 
-    
-    id = res["hits"]["hits"][0]["_id"]
-    print(id)
-    for x in res["hits"]["hits"]:
-        nodes = x["_source"]["nodes"]
-        edges = x["_source"]["links"]
+    x = res["hits"]["hits"][0]
 
-    return make_response(jsonify({"id":id,"nodes":nodes, "edges":edges}), 200) #test jsonify
+    id = x["_id"]
+    timestamp = x["_source"]["timestamp"]
+    nodes = x["_source"]["nodes"]
+    edges = x["_source"]["links"]
+    text = x["_source"]["full_text"]
+
+
+    return make_response(jsonify({"id":id, "timestamp":timestamp, "nodes":nodes, "edges":edges, "text":text}), 200) #test jsonify
 
 
 #return a list of all document's ids
@@ -80,8 +83,19 @@ def get_document_by_id(id):
     }
 
     res = es.search(index=ES_INDEX, body=query)
-    res = str(res)
-    return make_response(jsonify(res), 200)
+    nodes = []
+    edges = []
+
+    x = res["hits"]["hits"][0]
+
+    id = x["_id"]
+    timestamp = x["_source"]["timestamp"]
+    nodes = x["_source"]["nodes"]
+    edges = x["_source"]["links"]
+    text = x["_source"]["full_text"]
+
+
+    return make_response(jsonify({"id":id, "timestamp":timestamp, "nodes":nodes, "edges":edges, "text":text}), 200) #test jsonify
 
 
 if __name__ == "__main__":
