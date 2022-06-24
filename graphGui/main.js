@@ -23,10 +23,10 @@ setInterval(function () {
                         document.getElementById("current_label").innerHTML = String("ID: " + this.innerHTML);
 
                         $.getJSON(flask_doc_request + String(this.innerHTML), function (data) {
-                            document.getElementById("current_timestamp").innerHTML = "Timestamp: " + String(data.hits.hits[0]._source.timestamp);
+                            document.getElementById("current_timestamp").innerHTML = "Timestamp: " + String(data.timestamp);
 
-                            var nodes = data.hits.hits[0]._source.nodes
-                            var edges = data.hits.hits[0]._source.links
+                            var nodes = data.nodes
+                            var edges = data.edges
 
                             var node_size = Object.keys(nodes).length
                             var edge_size = Object.keys(edges).length
@@ -95,23 +95,16 @@ setInterval(function () {
 $.getJSON(first_request, function (data) {
 
 
-    console.log(typeof data)
-    const jsonStr = JSON.stringify(data)  
-      try {  
-        const data = JSON.parse(jsonStr);  
-        console.log(data)
-      } catch (e) {  
-        console.log('invalid json');  
-      }
-
+    console.log(data.id)
+      
 
       
 
-    document.getElementById("current_label").innerHTML = "ID: " + String(data.hits.hits[0]._id);
-    document.getElementById("current_timestamp").innerHTML = "Timestamp: " + String(data.hits.hits[0]._source.timestamp);
+    document.getElementById("current_label").innerHTML = "ID: " + String(data.id);
+    document.getElementById("current_timestamp").innerHTML = "Timestamp: " + String(data.id);
     
-    var nodes = data.hits.hits[0]._source.nodes
-    var edges = data.hits.hits[0]._source.links
+    var nodes = data.nodes
+    var edges = data.edges
 
     var node_size = Object.keys(nodes).length
     var edge_size = Object.keys(edges).length

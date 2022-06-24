@@ -25,8 +25,19 @@ def getData():
         }
     }
     res = es.search(index=ES_INDEX, body=search_param)
-    res = str(res)
-    return make_response(jsonify(res), 200)
+    #res = str(res)
+    #res =  jsonify(res)
+    nodes = []
+    edges = []
+
+    
+    id = res["hits"]["hits"][0]["_id"]
+    print(id)
+    for x in res["hits"]["hits"]:
+        nodes = x["_source"]["nodes"]
+        edges = x["_source"]["links"]
+
+    return make_response(jsonify({"id":id,"nodes":nodes, "edges":edges}), 200) #test jsonify
 
 
 #return a list of all document's ids

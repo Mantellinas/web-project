@@ -1,12 +1,13 @@
 from flask import Flask, json, jsonify
 import requests
 from datetime import datetime
-ES_ADDRESS = "http://elasticsearch:9200"
+ES_ADDRESS = "http://localhost:9200"
 SPACY_ADDRESS = "http://spacy:8088/entities"
 
 PubMedApi = Flask(__name__)
 
 f = open('articles_bulk.json')
+#f = open('/home/rosario/Scrivania/web-project/DocumentGenerator/articles_bulk.json')
 data = json.load(f)
 print("caricato")
 i = -1
@@ -18,11 +19,12 @@ def getData():
     global data
 
     i += 1
-    if i == len(data):
-        i = 0
-        
+    print(i)
+    
     article = data[i]
-   
+
+        
+
     text_full_text = article['full_text']['text']
     for item in article['full_text']['sections']:
         text_full_text += item['text']
@@ -45,10 +47,12 @@ def getData():
             for edge in item['edges']:
                 source.append({"source": edge['src_pos'], "target": edge['dst_pos'], "value": edge['edge_name']})
         
-        temp_dict = {"timestamp": datetime.now().isoformat(),"nodes": nodesDict, "links": source}
-        graph_dict = jsonify(temp_dict)
+        temp_dict = {"timestamp": datetime.now().isoformat(),"nodes": nodesDict, "links": source, "full_text": text_full_text }
+    
+        #graph_dict = jsonify(temp_dict)
+        return  json.dumps(temp_dict) 
 
-        return graph_dict   
+
     except:
         print("errore")
         return
