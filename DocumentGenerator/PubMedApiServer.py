@@ -7,7 +7,7 @@ PubMedApi = Flask(__name__)
 
 f = open('articles_bulk.json')
 #f = open('/home/rosario/Scrivania/web-project/DocumentGenerator/articles_bulk.json')
-data = json.load(f)
+data_readed = json.load(f)
 print("caricato")
 i = -1
 
@@ -15,43 +15,43 @@ i = -1
 @PubMedApi.route("/getData")
 def getData():
     global i
-    global data
+    global data_readed
 
     i += 1
     print(i)
     try:
-        article = data[i]
+        article = data_readed[i]
+        text_full_text = article['full_text']['text']
+        for item in article['full_text']['sections']:
+            text_full_text += item['text']
+        query = {
+            "text": text_full_text,
+    }
     except:
-        print("non ho tirato il documento "+i)
+        print("non ho tirato il documento "+str(i))
     
         
-
-    text_full_text = article['full_text']['text']
-    for item in article['full_text']['sections']:
-        text_full_text += item['text']
-    query = {
-        "text": text_full_text,
-    }
-    
     try:
         query = { "pmcid": "string" , "text" : query['text']}
         resp = requests.post(url=SPACY_ADDRESS, json=query) 
         data = resp.json()
-    
         nodesDict = []
         source = []
 
         for item in data['nodes']:
-            nodesDict.append({"name" : item, "text": data['nodes'][item]['text'], "categories": data['nodes'][item]['categories'], "wid":data['nodes'][item]['wid'], "rho":data['nodes'][item]['rho']}) 
+            nodesDict.append({"name" : item, "text": data['nodes'][item]['text'], "categories": data['nodes'][item]['categories'], "wid":data['nodes'][item]['wid'], "rho":data['nodes'][item]['rho'], "start_pos": data['nodes'][item]["start_pos"], "end_pos": data['nodes'][item]["end_pos"] }) 
         
         for item in data['sentences']:
             for edge in item['edges']:
-                source.append({"source": edge['src_pos'], "target": edge['dst_pos'], "value": edge['edge_name']})
+                source.append({"source": edge['src_pos'], "target": edge['dst_pos'], "value": edge['edge_name'], "start_pos": item["start_pos"], "end_pos": item["end_pos"]}) #end_pos
         
         temp_dict = {"timestamp": datetime.now().isoformat(),"nodes": nodesDict, "links": source, "full_text": text_full_text }
-        print(temp_dict)
+    
         #graph_dict = jsonify(temp_dict)
+        print("pubmed invio documento")
         return  json.dumps(temp_dict) 
+        
+
 
 
     except:
