@@ -2,7 +2,7 @@ from flask import Flask, json, jsonify, make_response
 from elasticsearch import Elasticsearch
 from flask_cors import CORS, cross_origin
 import pandas as pd
-
+import re
 es_server = Flask(__name__)
 cors = CORS(es_server)
 ES_ADDRESS = "http://elasticsearch:9200"
@@ -116,8 +116,6 @@ def get_pie_by_id(id):
 
     nodes = []
     edges = []
-    nodes_categories = []
-    edges_categories = []
 
     x = res["hits"]["hits"][0]
     id = x["_id"]
@@ -125,30 +123,29 @@ def get_pie_by_id(id):
     nodes = x["_source"]["nodes"]
     edges = x["_source"]["links"]
   
+    node_dict = {}
+    edge_dict = {}
+    
     for node in nodes:
         if type(node["categories"]) is list and type(node["categories"]) is not None:
-            nodes_categories.append(node["categories"][0])
+            if node["categories"][0] in node_dict:
+                node_dict[node["categories"][0]] += 1
+            else:
+                node_dict[node["categories"][0]] = 1
+
             if len(node["categories"]) > 1:
-                nodes_categories.append(node["categories"][1])
-    
-    df_nodes = pd.DataFrame (nodes_categories, columns = ['categories'])  
-    df_nodes = df_nodes.groupby(['categories'])['categories'].count().sort_values(ascending=False)
-    
-    df_nodes = df_nodes.to_json(orient="columns")
+                if node["categories"][1] in node_dict:
+                    node_dict[node["categories"][1]] += 1
+                else:
+                    node_dict[node["categories"][1]] = 1
     
     for edge in edges:
-        edges_categories.append(edge["value"])
+        if edge["value"] in edge_dict:
+            edge_dict[edge["value"]] += 1
+        else:
+            edge_dict[edge["value"]] = 1
     
-    df_edges = pd.DataFrame (edges_categories, columns = ['categories'])  
-    df_edges = df_edges.groupby(['categories'])['categories'].count().sort_values(ascending=False)
-    
-    df_edges = df_edges.to_json(orient="columns")
-    
-
-
-   
-    #TODO remove backslashes
-    return make_response(jsonify({"id": id, "timestamp": timestamp, "count_nodes":df_nodes, "count_edges":df_edges}))
+    return make_response(jsonify({"id": id, "timestamp": timestamp, "count_nodes":node_dict, "count_edges":edge_dict}))
 
 if __name__ == "__main__":
     es_server.run(debug=True,
