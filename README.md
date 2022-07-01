@@ -66,3 +66,5 @@ The user interface of weNet was created entirely using web technologies and fram
 ## <img src="https://github.com/Mantellinas/WeNet/blob/main/images/visjs_logo.png" width=90> Vis.js
 * "A dynamic, browser based visualization library. The library is designed to be easy to use, to handle large amounts of dynamic data, and to enable manipulation of and interaction with the data".
 * "Network is a visualization to display networks and networks consisting of nodes and edges. The visualization is easy to use and supports custom shapes, styles, colors, sizes, images, and more. The network visualization works smooth on any modern browser for up to a few thousand nodes and edges".
+
+ <img src="images/gifgif.gif" alt="bootstrap-image" width=800/>
