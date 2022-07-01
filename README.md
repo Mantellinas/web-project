@@ -1,0 +1,58 @@
+#  <img src="https://avatars.githubusercontent.com/u/106406449?s=400&u=a0b4053df2e41a93a2b3506d1e094773ab93700f&v=4" width=80>  WeNet Dashboard
+## Introduction
+WeNet is a PubMed Central knowledge graph generator based on SciSpacy. The purpose of this project is to create a dashboard for the users of WeNet. 
+The main components of the dashboard include, an interface for displaying graphs, a menu for selecting via id the document you want to examine, a frame for displaying a pie chart regarding statistics on the nodes and arcs of the network, and a section that allows you to delve into the categories.labels present in the graph under examination. In addition, there is a section that allows the text of the analyzed paper to be displayed and the entities and relationships extrapolated to create the graph to be highlighted at the click of the mouse
+
+
+## Back-end
+The back-end of WeNet is based on a real time pipeline developed using Flask and part of the Elastic ELK stack. All the elements are treated as containerized microservices and coordinated by **Docker compose**.
+<p align="center">
+  <img src="images/logoweb2.png" alt="data-pipeline" width=800/>
+</p>
+
+### Pipeline
+
+##  <img src="https://raw.githubusercontent.com/Mantellinas/WeNet/main/images/pubmed.png" width=80> PubMed Central repository
+  
+All the documents are downloaded from the PubMed central Repository and stored in a json (test json at <a href="https://drive.google.com/drive/folders/11jqONNuaLajONQrGrEyS7R5K-US80fYx?usp=sharing">here</a>). 
+PubMed is a free search engine accessing primarily the MEDLINE database of references and abstracts on life sciences and biomedical topics. The United States National Library of Medicine (NLM) at the National Institutes of Health maintain the database as part of the Entrez system of information retrieval.
+The document's extractions is simulated using a Python Flask server which contains a json with 10000 documents.
+
+
+## <img src="https://github.com/Mantellinas/WeNet/blob/main/images/spacy.png" width=90> Spacy
+### Industrial-Strength Natural Language Processing
+* spaCy is a free, open-source library for advanced Natural Language Processing (NLP) in Python. If you’re working with a lot of text, you’ll eventually want to know more about it. For example, what’s it about? What do the words mean in context? Who is doing what to whom? What companies and products are mentioned? Which texts are similar to each other? spaCy is designed specifically for production use and helps you build applications that process and “understand” large volumes of text. It can be used to build information extraction or natural language understanding systems, or to pre-process text for deep learning.
+* "scispaCy is a Python package containing spaCy models for processing biomedical, scientific or clinical text."
+* The graph Extraction process is made by a Spacy istance hosted on a **uvicorn Fast API** Rest server.
+  
+
+
+## <img src="https://www.vectorlogo.zone/logos/elasticco_logstash/elasticco_logstash-icon.svg" style="zoom:80%;" > LogStash
+
+### Centralize, transform & stash your data
+
+* "Logstash is a free and open server-side data processing pipeline that ingests data from a multitude of sources, transforms it, and then sends it to your favorite "stash".
+ 
+* "Logstash dynamically ingests, transforms, and ships your data regardless of format or complexity. Derive structure from unstructured data with grok, decipher geo coordinates from IP addresses, anonymize or exclude sensitive fields, and ease overall processing".
+* Logstash is used to pull documents from the Flask pubmed API. It makes http requests every 1 minute and store them in a elasticsearch index.
+### 
+
+
+## <img src="https://github.com/Mantellinas/WeNet/blob/main/images/elastic_logo.png" width=90> ElasticSearch
+
+
+
+### Search. Observe. Protect.
+* "Elasticsearch is a distributed, free and open search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured".
+* "Elasticsearch is a RESTful search and analytics engine  capable of addressing a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data for lightning fast search, fine‑tuned relevancy, and powerful analytics that scale with ease".
+* Elasticsearch is the main data storage components: all the processed documents are directly stored inside elasticsearch by the native logstash plugin.
+
+### <img src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-icon.svg"  width=90>  Flask API
+* The interface made available to the front end is developed through the flask framework following the rest architecture. The server provides routes, each useful for obtaining information from the client that wants to display a text, its associated graph, or extracted statistics.
+* The server is cors-enabled to communicate outside its container.
+
+## Front-end
+The user interface of weNet was created entirely using web technologies and frameworks for responsive display of the dashboard to make it usable from any device. In addition, special javascript libraries were used for the visualization of graphs and diagrams.
+
+## <img src="https://www.vectorlogo.zone/logos/getbootstrap/getbootstrap-icon.svg" width=90> Bootstrap
+
