@@ -59,3 +59,6 @@ The user interface of weNet was created entirely using web technologies and fram
 * "Powerful, extensible, and feature-packed frontend toolkit. Build and customize with Sass, utilize prebuilt grid system and components, and bring projects to life with powerful JavaScript plugins".
 * "Bootstrap utilizes Sass for a modular and customizable architecture. Import only the components you need, enable global options like gradients and shadows, and write your own CSS with our variables, maps, functions, and mixins".
 * bootstrap was used for the entire implementation of the page skeleton using the columnar system, this allows the dashboard to adapt to computers, tablets and smatphones, changing its layout as needed.
+<p align="center">
+ <img src="images/bootstrap.png" alt="bootstrap-image" width=800/>
+</p>
