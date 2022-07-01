@@ -67,4 +67,6 @@ The user interface of weNet was created entirely using web technologies and fram
 * "A dynamic, browser based visualization library. The library is designed to be easy to use, to handle large amounts of dynamic data, and to enable manipulation of and interaction with the data".
 * "Network is a visualization to display networks and networks consisting of nodes and edges. The visualization is easy to use and supports custom shapes, styles, colors, sizes, images, and more. The network visualization works smooth on any modern browser for up to a few thousand nodes and edges".
 
- <img src="images/gifgif.gif" alt="bootstrap-image" width=800/>
+<p align="center">
+ <img src="images/gifgif.gif" alt="bootstrap-image" width=1000/>
+</p>
