@@ -16,6 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
         crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
@@ -114,13 +116,6 @@
                             <div>
                                 <p class="mb-0 text-sm">Testo : </p>
                                 <p class="mb-0 text-sm testo">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni fuga molestias
-                                    aliquid, enim iste ipsa nobis, dolorum facilis modi aut dignissimos harum, maiores
-                                    distinctio amet corporis eaque veritatis accusantium praesentium omnis officiis. Aut
-                                    in fuga, harum ab libero labore laboriosam itaque eveniet cum sequi numquam nobis et
-                                    eum recusandae inventore iusto dolor pariatur ipsam? Repudiandae incidunt libero rem
-                                    ullam assumenda nihil facilis inventore aut eligendi, porro dicta accusamus cum ad
-                                    beatae possimus veniam? Ducimus assumenda libero aut quae.
                                 </p>
                             </div>
                         </div>
@@ -131,7 +126,7 @@
                         <div class="card-info">
                             <div>
                                 <p class="mb-0 text-sm">Parola selezionata: </p>
-                                <p class="mb-0 text-sm" id="parolaSelezionata">Pippo </p>
+                                <p class="mb-0 text-sm" id="parolaSelezionata"></p>
                                 <table class="table" id="table-nodes">
                                     <thead>
                                         <tr>
@@ -186,12 +181,14 @@
                 theme = document.body.classList.contains("light-theme")
                     ? "light"
                     : "dark";
+                console.log("IMPOSTO "+theme);
                 localStorage.setItem("theme", theme);
             } else {
                 document.body.classList.toggle("dark-theme");
                 theme = document.body.classList.contains("dark-theme")
                     ? "dark"
                     : "light";
+                console.log("IMPOSTO "+theme);
                 localStorage.setItem("theme", theme);
             }
         });

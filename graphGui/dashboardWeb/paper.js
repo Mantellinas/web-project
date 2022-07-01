@@ -57,6 +57,7 @@ $.getJSON(flask_doc_request + sessionStorage.getItem('id_graph'), function (data
         var text = $(event.target).text();
         pos = $(event.target).attr("src");
         var counterMatch = 1;
+        $('#table-nodes').empty().append('<thead><tr> <th scope="col">#</th><th scope="col">Arco</th><th scope="col">Entità</th></tr></thead>');
         for (var i = 0; i < arcMap.length; i++) {
             if (arcMap[i].source == pos) {
                 console.log(arcMap[i].source)
