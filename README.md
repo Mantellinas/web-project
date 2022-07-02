@@ -4,7 +4,7 @@ WeNet is a PubMed Central knowledge graph generator based on SciSpacy. The purpo
 The main components of the dashboard include, an interface for displaying graphs, a menu for selecting via id the document you want to examine, a frame for displaying a pie chart regarding statistics on the nodes and arcs of the network, and a section that allows you to delve into the categories.labels present in the graph under examination. In addition, there is a section that allows the text of the analyzed paper to be displayed and the entities and relationships extrapolated to create the graph to be highlighted at the click of the mouse
 
 
-## Back-end
+## <img src="images/back.png" width=80>  Back-end
 The back-end of WeNet is based on a real time pipeline developed using Flask and part of the Elastic ELK stack. All the elements are treated as containerized microservices and coordinated by **Docker compose**.
 <p align="center">
   <img src="images/logoweb2.png" alt="data-pipeline" width=800/>
@@ -51,7 +51,7 @@ The document's extractions is simulated using a Python Flask server which contai
 * The interface made available to the front end is developed through the flask framework following the rest architecture. The server provides routes, each useful for obtaining information from the client that wants to display a text, its associated graph, or extracted statistics.
 * The server is cors-enabled to communicate outside its container.
 
-## Front-end
+##  <img src="images/front.png" width=120>  Front-end
 The user interface of weNet was created entirely using web technologies and frameworks for responsive display of the dashboard to make it usable from any device. In addition, special javascript libraries were used for the visualization of graphs and diagrams.
 
 ## <img src="https://www.vectorlogo.zone/logos/getbootstrap/getbootstrap-icon.svg" width=90> Bootstrap
