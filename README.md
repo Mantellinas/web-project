@@ -66,7 +66,21 @@ The user interface of weNet was created entirely using web technologies and fram
 ## <img src="https://github.com/Mantellinas/WeNet/blob/main/images/visjs_logo.png" width=90> Vis.js
 * "A dynamic, browser based visualization library. The library is designed to be easy to use, to handle large amounts of dynamic data, and to enable manipulation of and interaction with the data".
 * "Network is a visualization to display networks and networks consisting of nodes and edges. The visualization is easy to use and supports custom shapes, styles, colors, sizes, images, and more. The network visualization works smooth on any modern browser for up to a few thousand nodes and edges".
+* Vis.js was mainly used for visualizing graphs from the extracted entities and relationships, represented by nodes and edges respectively.
 
+## <img src="https://toppng.com/uploads/preview/google-developers-logo-vector-free-11574219718wnmrucewbg.png" width=90> Google Charts
+* "Google chart tools are powerful, simple to use, and free which provides Interactive charts for browsers and mobile devices".
+* Google chart was used to describe the categories of nodes within the graph.
+
+## Try it out
+* Move to the main directory of the project and type **docker-compose up** (don't forget to download the articles-bulk.json file from google drive).
+* open the **index.html** file with your favourite browser and enjoy it.
 <p align="center">
  <img src="images/gifgif.gif" alt="bootstrap-image" width=1000/>
 </p>
+
+## Authors 
+
+* [Rosario Cannavò](https://github.com/rosariocannavo)
+* [Mario Benissimo](https://github.com/mariobenissimo) 
+
