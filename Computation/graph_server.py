@@ -1,8 +1,7 @@
 from flask import Flask, json, jsonify, make_response
 from elasticsearch import Elasticsearch
 from flask_cors import CORS, cross_origin
-import pandas as pd
-import re
+
 es_server = Flask(__name__)
 cors = CORS(es_server)
 ES_ADDRESS = "http://elasticsearch:9200"
@@ -25,8 +24,6 @@ def getData():
         }
     }
     res = es.search(index=ES_INDEX, body=search_param)
-    #res = str(res)
-    #res =  jsonify(res)
     nodes = []
     edges = []
 
@@ -93,9 +90,9 @@ def get_document_by_id(id):
     edges = x["_source"]["links"]
     text = x["_source"]["full_text"]
 
-    return make_response(jsonify({"id":id, "timestamp":timestamp, "nodes":nodes, "edges":edges, "text":text}), 200) #test jsonify
+    return make_response(jsonify({"id":id, "timestamp":timestamp, "nodes":nodes, "edges":edges, "text":text}), 200) 
 
-
+#return the information relative to a document for the pie visualization
 @es_server.route("/get-pie-by-id/<id>") 
 @cross_origin()
 def get_pie_by_id(id):

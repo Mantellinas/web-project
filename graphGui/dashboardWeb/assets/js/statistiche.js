@@ -18,7 +18,8 @@ function drawChart() {
         data.addColumn('number', 'Slices');
         data.addRows(obj);
         var options = {
-            title: 'Categorie'
+            title: 'Categorie',
+            is3D: 'true'
         };
         var chart = new google.visualization.PieChart(document.getElementById("piechart"));
         chart.draw(data, options);
