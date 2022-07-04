@@ -1,6 +1,7 @@
 const flask_doc_request_pie = 'http://localhost:3000/get-pie-by-id/'
 google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawChart);
+
 function drawChart() {
     $('#id_grafo').empty().append(sessionStorage.getItem('id_graph'))
     $.getJSON(flask_doc_request_pie + sessionStorage.getItem('id_graph'), function (data) {
@@ -28,5 +29,5 @@ function drawChart() {
 $('#graph').click(function (event) {
     sessionStorage.setItem('id_graph', sessionStorage.getItem('id_graph'))
                             window.open(
-                                "homeprova.html", "_self");
+                                "index.html", "_self");
 });

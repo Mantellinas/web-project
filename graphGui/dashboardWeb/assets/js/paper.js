@@ -3,7 +3,7 @@ const polling_request = "http://localhost:3000/get-doc-id"
 var previewElement;
 var previewArc;
 var previewNode = [];
-//at the beginning loads the last graph written on es
+
 $.getJSON(flask_doc_request + sessionStorage.getItem('id_graph'), function (data) {
 
 
@@ -48,8 +48,8 @@ $.getJSON(flask_doc_request + sessionStorage.getItem('id_graph'), function (data
     $(".word").click(function (event) {
         if (previewElement) $(previewElement.target.classList.remove('bg-yellow'))
         if (previewArc) previewArc.removeClass('bg-green');
-        if (previewNode){
-            for(var i=0;i<previewNode.length;i++){
+        if (previewNode) {
+            for (var i = 0; i < previewNode.length; i++) {
                 previewNode[i].removeClass('bg-red');
             }
         }
@@ -86,7 +86,7 @@ $.getJSON(flask_doc_request + sessionStorage.getItem('id_graph'), function (data
     })
 });
 
-function prova(element){
+function prova(element) {
     //console.log($(this.pos))
     var text = element.getAttribute("src")
     var node = $("span[src='" + text + "']");
@@ -104,6 +104,6 @@ function prova(element){
 
 $('#graph').click(function (event) {
     sessionStorage.setItem('id_graph', sessionStorage.getItem('id_graph'))
-                            window.open(
-                                "homeprova.html", "_self");
+    window.open(
+        "index.html", "_self");
 });

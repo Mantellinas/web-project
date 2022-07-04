@@ -1,11 +1,12 @@
 const flask_doc_request = 'http://localhost:3000/get-doc-by-id/'
 const flask_doc_request_pie = 'http://localhost:3000/get-pie-by-id/'
-//at the beginning loads the last graph written on es
+
+
 $.getJSON(flask_doc_request + sessionStorage.getItem('id_graph'), function (data) {
 
     console.log(sessionStorage.getItem('id_graph'));
     console.log(data.id)
-    
+
     var nodes = data.nodes
     var edges = data.edges
 
@@ -26,7 +27,6 @@ $.getJSON(flask_doc_request + sessionStorage.getItem('id_graph'), function (data
              ${edges[i].value}
              </td>
               </tr>`);
-        //edges_list.add({ from: edges[i].source, to: edges[i].target, weight: edges[i].value, title: edges[i].value });
     }
 
     for (var i = 0; i < node_size; i++) {
@@ -42,8 +42,6 @@ $.getJSON(flask_doc_request + sessionStorage.getItem('id_graph'), function (data
              ${nodes[i].categories !== null ? nodes[i].categories[0] : "None"}
              </td>
               </tr>`);
-
-              //nodes_list.add({ id: nodes[i].name, label: nodes[i].text, title: (nodes[i].categories !== null ? nodes[i].categories[0] : "None"), group: (nodes[i].categories !== null ? nodes[i].categories[0] : "None") });
     }
 
     $('#numNode').empty().append(node_size)
@@ -60,29 +58,29 @@ $.getJSON(flask_doc_request_pie + sessionStorage.getItem('id_graph'), function (
     var max_edge_name;
     for (const [key, value] of Object.entries(count_edges)) {
         console.log(key, value);
-        if(value > max_edge){
+        if (value > max_edge) {
             max_edge = value;
             max_edge_name = key;
         }
-      }
+    }
 
     var max_node = 0;
     var max_node_name;
     for (const [key, value] of Object.entries(count_nodes)) {
         console.log(key, value);
-        if(value > max_node){
+        if (value > max_node) {
             max_node = value;
             max_node_name = key;
         }
-      }
+    }
 
-      $('#nodeFreq').empty().append(max_node_name)
+    $('#nodeFreq').empty().append(max_node_name)
     $('#archFreq').empty().append(max_edge_name)
 });
 
 
 $('#graph').click(function (event) {
     sessionStorage.setItem('id_graph', sessionStorage.getItem('id_graph'))
-                            window.open(
-                                "homeprova.html", "_self");
+    window.open(
+        "index.html", "_self");
 });
